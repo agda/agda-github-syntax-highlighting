@@ -52,16 +52,10 @@
 			<string>constant.char.agda</string>
 		</dict>
 		<dict>
-			<key>captures</key>
-			<dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>constant.numeric.agda</string>
-				</dict>
-			</dict>
 			<key>match</key>
-			<string>(^|[[:space:]\(\){}])(-?\d+|0x[\dABCDEF]+|-?\d+\.\d+((e|E)(\+|-)?\d+)?|-?\d+(e|E)(\+|-)?\d+)($|[[:space:]\(\){}])</string>
+			<string>(?&lt;=^|[[:space:]\(\){}])(-?\d+|0x[0-9A-F]+|-?\d+\.\d+((e|E)(\+|-)?\d+)?|-?\d+(e|E)(\+|-)?\d+)(?=[[:space:]\(\){}])</string>
+			<key>name</key>
+			<string>constant.numeric.agda</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -78,62 +72,29 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(data|record|module)[[:space:]]+([^;\(\){}@"[:space:]]+)</string>
+			<string>\b(data|record|module|constructor|open *import|open|import)[[:space:]]+([^;\(\){}@"[:space:]]+)</string>
 		</dict>
 		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.agda</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.type.agda</string>
-				</dict>
-			</dict>
 			<key>match</key>
-			<string>\b(open *import|open|import)\b[[:space:]]+([^;\(\){}@"[:space:]]+)</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.agda</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.agda</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>\b(infix|infixr|infixl)\b[[:space:]]+[-0123456789.]+[[:space:]]+([^\n]+)</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.agda</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.tag.agda</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>([.^;\(\){}@"[:space:]](\?)[.$;\(\){}@"[:space:]]|({!.*!}))</string>
+			<string>((?&lt;=^|[.;\(\){}@"[:space:]])\?(?=[.;\(\){}@"[:space:]])|{!.*!})</string>
+			<key>name</key>
+			<string>entity.name.tag.agda</string>
 		</dict>
 		<dict>
 			<key>match</key>
 			<string>\b(abstract|constructor|data|do|eta-equality|field|forall|hiding|import|in|inductive|infix|infixl|infixr|instance|let|macro|module|mutual|no-eta-equality|open|overlap|pattern|postulate|primitive|private|public|quote|quoteContext|quoteGoal|quoteTerm|record|renaming|rewrite|syntax|tactic|unquote|unquoteDecl|unquoteDef|using|variable|where|with)\b</string>
+			<key>name</key>
+			<string>keyword.other.agda</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=[[:space:]\(\)\{\}])</string>
+			<key>name</key>
+			<string>constant.language.agda</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;=^|[[:space:]\(\)\{\}])(λ|→|-&gt;|∀|=|←|:)(?=[[:space:]\(\)\{\}])</string>
 			<key>name</key>
 			<string>keyword.other.agda</string>
 		</dict>
@@ -143,30 +104,6 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>constant.language.agda</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>\b((Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*)($|[[:space:]\(\)\{\}])</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.other.agda</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>[[:space:]^\(\)\{\}](λ|→|∀)[$[:space:]\(\)\{\}]</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
 					<string>keyword.other.agda</string>
 				</dict>
 				<key>3</key>
@@ -176,7 +113,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where)*)([^;\(\){}@"[:space:]]+)[[:space:]]+:</string>
+			<string>^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)*)([^;\(\){}@"[:space:]]+)[[:space:]]+(?=:)</string>
 		</dict>
 	</array>
 	<key>scopeName</key>
