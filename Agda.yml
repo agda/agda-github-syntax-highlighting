@@ -27,32 +27,18 @@ patterns:
 - # Character literals
   match: '''([^\\'']|\\[''\\"[:alnum:]]+)'''
   name: constant.char.agda
-- # Number literals
+- # Numeric literals
   match: '(^|[[:space:]\(\){}])(-?\d+|0x[\dABCDEF]+|-?\d+\.\d+((e|E)(\+|-)?\d+)?|-?\d+(e|E)(\+|-)?\d+)($|[[:space:]\(\){}])'
   captures:
     '2':
       name: constant.numeric.agda
-- # Definition of datatypes/records/modules
-  match: '\b(data|record|module|constructor)[[:space:]]+([^;\(\){}@"[:space:]]+)'
+- # Names of datatypes/records/modules/constructors
+  match: '\b(data|record|module|constructor|open *import|open|import)[[:space:]]+([^;\(\){}@"[:space:]]+)'
   captures:
     '1':
       name: keyword.other.agda
     '2':
       name: entity.name.type.agda
-- # Opening/importing modules
-  match: '\b(open *import|open|import)\b[[:space:]]+([^;\(\){}@"[:space:]]+)'
-  captures:
-    '1':
-      name: keyword.other.agda
-    '2':
-      name: entity.name.type.agda
-- # Fixity
-  match: '\b(infix|infixr|infixl)\b[[:space:]]+[-0123456789.]+[[:space:]]+([^\n]+)'
-  captures:
-    '1':
-      name: keyword.other.agda
-    '2':
-      name: entity.name.agda
 - # Goals
   match: '([.^;\(\){}@"[:space:]](\?)[.$;\(\){}@"[:space:]]|({!.*!}))'
   captures:
@@ -70,18 +56,20 @@ patterns:
   captures:
     '1':
       name: constant.language.agda
-- # Same issue with λ, → and ∀
-  match: '[[:space:]^\(\)\{\}](λ|→|∀)[$[:space:]\(\)\{\}]'
+- # Same issue with λ, → and ∀.
+  match: '[[:space:]^\(\)\{\}](λ|→|->|∀|=|←)(?![$[:space:]\(\)\{\}])'
   captures:
     '1':
       name: keyword.other.agda
 - # Type declarations
-  match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where)*)([^;\(\){}@"[:space:]]+)[[:space:]]+:'
+  match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)*)([^;\(\){}@"[:space:]]+)[[:space:]]+(:)'
   captures:
     '1':
       name: keyword.other.agda
     '3':
       name: entity.name.agda
+    '4':
+      name: keyword.other.agda
 
 # - # Definitions, does not work properly for infix operators and definitions by copatterns…
 #   match: '^(([[:space:]]|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where)*)([^;\(\){}@"[:space:]]+)([[:space:]]+[^;"[:space:]]+)*[[:space:]]+='
