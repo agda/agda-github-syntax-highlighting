@@ -1,5 +1,5 @@
 #
-# Syntax highlighting for Agda, used by github
+# Syntax highlighting for Agda, used by GitHub
 #
 
 scopeName: source.agda
@@ -33,7 +33,7 @@ patterns:
     '2':
       name: constant.numeric.agda
 - # Definition of datatypes/records/modules
-  match: '\b(data|record|module)[[:space:]]+([^;\(\){}@"[:space:]]+)'
+  match: '\b(data|record|module|constructor)[[:space:]]+([^;\(\){}@"[:space:]]+)'
   captures:
     '1':
       name: keyword.other.agda
