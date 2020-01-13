@@ -28,10 +28,8 @@ patterns:
   match: '''([^\\'']|\\[''\\"[:alnum:]]+)'''
   name: constant.char.agda
 - # Numeric literals
-  match: '(^|[[:space:]\(\){}])(-?\d+|0x[\dABCDEF]+|-?\d+\.\d+((e|E)(\+|-)?\d+)?|-?\d+(e|E)(\+|-)?\d+)($|[[:space:]\(\){}])'
-  captures:
-    '2':
-      name: constant.numeric.agda
+  match: '(?<=^|[[:space:]\(\){}])(-?\d+|0x[0-9A-F]+|-?\d+\.\d+((e|E)(\+|-)?\d+)?|-?\d+(e|E)(\+|-)?\d+)(?=[[:space:]\(\){}])'
+  name: constant.numeric.agda
 - # Names of datatypes/records/modules/constructors
   match: '\b(data|record|module|constructor|open *import|open|import)[[:space:]]+([^;\(\){}@"[:space:]]+)'
   captures:
@@ -40,39 +38,27 @@ patterns:
     '2':
       name: entity.name.type.agda
 - # Goals
-  match: '([.^;\(\){}@"[:space:]](\?)[.$;\(\){}@"[:space:]]|({!.*!}))'
-  captures:
-    '2':
-      name: entity.name.tag.agda
-    '3':
-      name: entity.name.tag.agda
-- # Other keywords
+  match: '((?<=^|[.;\(\){}@"[:space:]])\?(?=[.;\(\){}@"[:space:]])|{!.*!})'
+  name: entity.name.tag.agda
+- # Other keywords (did not find how to split a line in YAML without it adding spaces or new lines)
   name: keyword.other.agda
   match: '\b(abstract|constructor|data|do|eta-equality|field|forall|hiding|import|in|inductive|infix|infixl|infixr|instance|let|macro|module|mutual|no-eta-equality|open|overlap|pattern|postulate|primitive|private|public|quote|quoteContext|quoteGoal|quoteTerm|record|renaming|rewrite|syntax|tactic|unquote|unquoteDecl|unquoteDef|using|variable|where|with)\b'
-- # Keywords for universes, like Set₁ etc. The issue is that \b does not
-  # recognize subscripts as being parts of words, so it does not work to end the
-  # regexp with \b. We do it in a somewhat ad-hoc way.
-  match: '\b((Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*)($|[[:space:]\(\)\{\}])'
-  captures:
-    '1':
-      name: constant.language.agda
+- # Keywords for universes, like Set₁ etc. Subscripts are not considered parts of words, so \b does not work.
+  match: '\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=[[:space:]\(\)\{\}])'
+  name: constant.language.agda
 - # Same issue with λ, → and ∀.
-  match: '[[:space:]^\(\)\{\}](λ|→|->|∀|=|←)(?![$[:space:]\(\)\{\}])'
-  captures:
-    '1':
-      name: keyword.other.agda
+  match: '(?<=^|[[:space:]\(\)\{\}])(λ|→|->|∀|=|←|:)(?=[[:space:]\(\)\{\}])'
+  name: keyword.other.agda
 - # Type declarations
-  match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)*)([^;\(\){}@"[:space:]]+)[[:space:]]+(:)'
+  match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)*)([^;\(\){}@"[:space:]]+)[[:space:]]+(?=:)'
   captures:
     '1':
       name: keyword.other.agda
     '3':
       name: entity.name.agda
-    '4':
-      name: keyword.other.agda
 
 # - # Definitions, does not work properly for infix operators and definitions by copatterns…
-#   match: '^(([[:space:]]|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where)*)([^;\(\){}@"[:space:]]+)([[:space:]]+[^;"[:space:]]+)*[[:space:]]+='
+#   match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where)*)([^;\(\){}@"[:space:]]+)([[:space:]]+[^;"[:space:]]+)*[[:space:]]+(?==)'
 #   captures:
 #     '1':
 #       name: keyword.other.agda
