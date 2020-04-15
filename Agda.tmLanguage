@@ -82,13 +82,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(abstract|constructor|data|do|eta-equality|field|forall|hiding|import|in|inductive|infix|infixl|infixr|instance|let|macro|module|mutual|no-eta-equality|open|overlap|pattern|postulate|primitive|private|public|quote|quoteContext|quoteGoal|quoteTerm|record|renaming|rewrite|syntax|tactic|unquote|unquoteDecl|unquoteDef|using|variable|where|with)\b</string>
-			<key>name</key>
-			<string>keyword.other.agda</string>
-		</dict>
-		<dict>
-			<key>match</key>
-			<string>\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=[[:space:]\(\)\{\}])</string>
+			<string>\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=$|[[:space:]\(\)\{\}])</string>
 			<key>name</key>
 			<string>constant.language.agda</string>
 		</dict>
@@ -106,14 +100,20 @@
 					<key>name</key>
 					<string>keyword.other.agda</string>
 				</dict>
-				<key>3</key>
+				<key>4</key>
 				<dict>
 					<key>name</key>
 					<string>entity.name.agda</string>
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)*)([^;\(\){}@"[:space:]]+)[[:space:]]+(?=:)</string>
+			<string>^[[:space:]]*(((abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)[[:space:]]+)*)((([^;\(\){}@"[:space:]]+)[[:space:]]+)+)(?=:)</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;=^|[[:space:]\(\){}])(abstract|constructor|data|do|eta-equality|field|forall|hiding|import|in|inductive|infix|infixl|infixr|instance|let|macro|module|mutual|no-eta-equality|open|overlap|pattern|postulate|primitive|private|public|quote|quoteContext|quoteGoal|quoteTerm|record|renaming|rewrite|syntax|tactic|unquote|unquoteDecl|unquoteDef|using|variable|where|with)(?=$|[[:space:]\(\){}])</string>
+			<key>name</key>
+			<string>keyword.other.agda</string>
 		</dict>
 	</array>
 	<key>scopeName</key>
