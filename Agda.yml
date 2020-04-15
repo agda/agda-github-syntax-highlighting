@@ -40,22 +40,25 @@ patterns:
 - # Goals
   match: '((?<=^|[.;\(\){}@"[:space:]])\?(?=[.;\(\){}@"[:space:]])|{!.*!})'
   name: entity.name.tag.agda
-- # Other keywords (did not find how to split a line in YAML without it adding spaces or new lines)
-  name: keyword.other.agda
-  match: '\b(abstract|constructor|data|do|eta-equality|field|forall|hiding|import|in|inductive|infix|infixl|infixr|instance|let|macro|module|mutual|no-eta-equality|open|overlap|pattern|postulate|primitive|private|public|quote|quoteContext|quoteGoal|quoteTerm|record|renaming|rewrite|syntax|tactic|unquote|unquoteDecl|unquoteDef|using|variable|where|with)\b'
 - # Keywords for universes, like Set₁ etc. Subscripts are not considered parts of words, so \b does not work.
   match: '\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=[[:space:]\(\)\{\}])'
   name: constant.language.agda
 - # Same issue with λ, → and ∀.
   match: '(?<=^|[[:space:]\(\)\{\}])(λ|→|->|∀|=|←|:)(?=[[:space:]\(\)\{\}])'
   name: keyword.other.agda
-- # Type declarations
-  match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)*)([^;\(\){}@"[:space:]]+)[[:space:]]+(?=:)'
+- ### Type declarations
+  # In type declarations like "a : Set" or "a b : Set", we want to highlight the "a" and "b".
+  # The regexp has to start from the beginning of the line (as we do not want to highlight "a" in "B : (a : A) -> Set", for example),
+  # therefore we also have to match possible keywords at the beginning like "postulate a : Set".
+  match: '^[[:space:]]*(((abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where|let)[[:space:]]+)*)((([^;\(\){}@"[:space:]]+)[[:space:]]+)+)(?=:)'
   captures:
     '1':
       name: keyword.other.agda
-    '3':
+    '4':
       name: entity.name.agda
+- # Other keywords (did not find how to split a line in YAML without it adding spaces or new lines)
+  name: keyword.other.agda
+  match: '(?<=^|[[:space:]\(\){}])(abstract|constructor|data|do|eta-equality|field|forall|hiding|import|in|inductive|infix|infixl|infixr|instance|let|macro|module|mutual|no-eta-equality|open|overlap|pattern|postulate|primitive|private|public|quote|quoteContext|quoteGoal|quoteTerm|record|renaming|rewrite|syntax|tactic|unquote|unquoteDecl|unquoteDef|using|variable|where|with)(?=$|[[:space:]\(\){}])'
 
 # - # Definitions, does not work properly for infix operators and definitions by copatterns…
 #   match: '^(([[:space:]]+|abstract|instance|macro|pattern|postulate|primitive|private|syntax|variable|where)*)([^;\(\){}@"[:space:]]+)([[:space:]]+[^;"[:space:]]+)*[[:space:]]+(?==)'
