@@ -41,7 +41,7 @@ patterns:
   match: '((?<=^|[.;\(\){}@"[:space:]])\?(?=[.;\(\){}@"[:space:]])|{!.*!})'
   name: entity.name.tag.agda
 - # Keywords for universes, like Set₁ etc. Subscripts are not considered parts of words, so \b does not work.
-  match: '\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=[[:space:]\(\)\{\}])'
+  match: '\b(Set|Prop)[0123456789₀₁₂₃₄₅₆₇₈₉]*(?=$|[[:space:]\(\)\{\}])'
   name: constant.language.agda
 - # Same issue with λ, → and ∀.
   match: '(?<=^|[[:space:]\(\)\{\}])(λ|→|->|∀|=|←|:)(?=[[:space:]\(\)\{\}])'
